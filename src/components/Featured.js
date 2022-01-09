@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import BTC from '../assets/btc-img.png'
-import { FiArrowUpRight, FiArrowDown } from 'react-icons/fi';
+// import { FiArrowUpRight, FiArrowDown } from 'react-icons/fi';
 import './Featured.css';
+import Cryptocard from '../components/Cryptocard';
 
 const Featured = () => {
   const [data, setData] = useState(null);
@@ -38,9 +38,12 @@ const Featured = () => {
         {/* Right */}
 
         <div className='right'>
-          <div className='card'>
+          {data.map((data, index) => {
+            return <Cryptocard data={data} key={index} />;
+          })}
+
+          {/* <div className='card'>
             <div className='top'>
-              {/* <img src={BTC} alt='/' /> */}
               <img src={data[0].image} alt='' />
             </div>
             <div>
@@ -59,8 +62,8 @@ const Featured = () => {
                 {data[0].price_change_percentage_24h.toFixed(2)}%
               </span>
             )}
-          </div>
-          <div className='card'>
+          </div> */}
+          {/* <div className='card'>
             <div className='top'>
               <img src={data[1].image} alt='' />
             </div>
@@ -80,8 +83,8 @@ const Featured = () => {
                 {data[1].price_change_percentage_24h.toFixed(2)}%
               </span>
             )}
-          </div>
-          <div className='card'>
+          </div> */}
+          {/* <div className='card'>
             <div className='top'>
               <img src={data[2].image} alt='' />
             </div>
@@ -122,8 +125,8 @@ const Featured = () => {
                 {data[3].price_change_percentage_24h.toFixed(2)}%
               </span>
             )}
-          </div>
-          <div className='card'>
+          </div> */}
+          {/* <div className='card'>
             <div className='top'>
               <img src={data[4].image} alt='' />
             </div>
@@ -164,7 +167,7 @@ const Featured = () => {
                 {data[5].price_change_percentage_24h.toFixed(2)}%
               </span>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
