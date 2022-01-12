@@ -19,9 +19,7 @@ const Navbar = () => {
           <li>
             <a href='/'>Featured</a>
           </li>
-          <li>
-            <a href='/'>Earn</a>
-          </li>
+
           <li>
             <a href='/'>Contact</a>
           </li>
