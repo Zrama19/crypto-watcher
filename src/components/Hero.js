@@ -1,7 +1,20 @@
 import React from 'react';
 import './Hero.css';
 import Crypto from '../assets/heroimg.PNG';
+import { useNavigate } from 'react-router-dom';
+
 const Hero = () => {
+  const navigate = useNavigate();
+
+  const handleKeypress = (e) => {
+    //it triggers by pressing the enter key
+    if (e.keyCode === 13) {
+      handleSubmit();
+    }
+  };
+  const handleSubmit = () => {
+    navigate('/signup');
+  };
   return (
     <div className='hero'>
       <div className='container'>
@@ -11,8 +24,17 @@ const Hero = () => {
           <h1>Keep up to date with real time prices</h1>
           <p>Buy, Sell, and store hundreds of Cryptocurrencies</p>
           <div className='input-container'>
-            <input type='email' placeholder='Enter your email' />
-            <button className='btn'>Learn More</button>
+            <form>
+              <input
+                type='email'
+                placeholder='Enter your email'
+                onSubmit={handleKeypress}
+              />
+
+              <button onClick={handleSubmit} className='btn'>
+                Learn More
+              </button>
+            </form>
           </div>
         </div>
         {/* Right Side */}
