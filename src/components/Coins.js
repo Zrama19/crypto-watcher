@@ -3,6 +3,7 @@ import axios from 'axios';
 import Navbar from './Navbar';
 import { useState, useEffect } from 'react';
 import Cryptocard from './Cryptocard';
+import './Coins.css';
 
 const Coins = () => {
   const [data, setData] = useState(null);
@@ -24,12 +25,16 @@ const Coins = () => {
   if (!data) return null;
 
   return (
-    <div className='container'>
+    <div>
       <Navbar />
-      <div className='right'>
-        {data.map((data, index) => {
-          return <Cryptocard data={data} key={index} />;
-        })}
+      <div className='coins-featured'>
+        <div className='container'>
+          <div className='right'>
+            {data.map((data, index) => {
+              return <Cryptocard data={data} key={index} />;
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );
