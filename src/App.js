@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Landing from './components/Landing';
 import Coins from './components/Coins';
 import ErrorPage from './components/ErrorPage';
