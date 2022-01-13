@@ -9,15 +9,18 @@ const Navbar = () => {
   return (
     <div className='header'>
       <div className='container'>
-        <h1 className='cryptowatcher'>
-          crypto<span className='primary'>watcher</span>
-        </h1>
+        <a href='/'>
+          <h1 className='cryptowatcher'>
+            crypto<span className='primary'>watcher</span>
+          </h1>
+        </a>
+
         <ul className={click ? 'nav-menu active' : 'nav-menu'}>
           <li>
             <a href='/'>Home</a>
           </li>
           <li>
-            <a href='/'>Featured</a>
+            <a href='/coins'>Coins</a>
           </li>
 
           <li>
