@@ -8,7 +8,7 @@ import { useWeb3React } from '@web3-react/core';
 const Navbar = () => {
   const { active, account, library, connector, activate, deactivate } =
     useWeb3React();
-
+  // console.log(library);
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
 
