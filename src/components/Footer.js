@@ -7,7 +7,7 @@ const Footer = () => {
     <div className='footer'>
       <div className='container'>
         <div className='col'>
-          <h5>Created by Zarif Ramazanov using React js</h5>
+          <h5>Created by Zarif Ramazanov using React.js</h5>
           <span className='bar'> </span>
           <a
             href='https://www.instagram.com/zrama19'
