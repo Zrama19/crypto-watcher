@@ -1,6 +1,6 @@
 import React from 'react';
 import './Hero.css';
-import Crypto from '../assets/heroimg.PNG';
+import Crypto from '../assets/pogo.png';
 import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
