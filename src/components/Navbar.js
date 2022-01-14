@@ -62,7 +62,7 @@ const Navbar = () => {
         </ul>
         <div className='btn-group'>
           <button onClick={connect} className='btn'>
-            Connect Wallet
+            Connect to Wallet
           </button>
           <button onClick={disconnect} className='btn'>
             Disconnect Wallet
