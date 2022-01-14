@@ -12,25 +12,29 @@ const Footer = () => {
           <a
             href='https://www.instagram.com/zrama19'
             target='_blank'
-            rel='noreferrer'
+            rel='noopener noreferrer'
           >
             <FaInstagram className='icon' />
           </a>
           <a
             href='https://twitter.com/zrama19'
             target='_blank'
-            rel='noreferrer'
+            rel='noopener noreferrer'
           >
             <FaTwitter className='icon' />
           </a>
           <a
             href='https://www.linkedin.com/in/zarif-ramazanov-217a46156/'
             target='_blank'
-            rel='noreferrer'
+            rel='noopener noreferrer'
           >
             <FaLinkedin className='icon' />
           </a>
-          <a href='https://github.com/zrama19' target='_blank' rel='noreferrer'>
+          <a
+            href='https://github.com/zrama19'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
             <FaGithub className='icon' />
           </a>
         </div>
