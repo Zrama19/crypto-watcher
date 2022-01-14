@@ -2,14 +2,8 @@ import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import './Navbar.css';
 import { useNavigate } from 'react-router-dom';
-import { injected } from './Connector';
-import { useWeb3React } from '@web3-react/core';
 
 const Navbar = () => {
-  const { active, account, library, connector, activate, deactivate } =
-    useWeb3React();
-  console.log(library);
-  console.log(connector);
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
 
@@ -19,21 +13,6 @@ const Navbar = () => {
     navigate('./future');
     e.preventDefault();
   };
-
-  async function connect() {
-    try {
-      await activate(injected);
-    } catch (ex) {
-      console.log(ex);
-    }
-  }
-  async function disconnect() {
-    try {
-      await deactivate(injected);
-    } catch (ex) {
-      console.log(ex);
-    }
-  }
 
   return (
     <div className='header'>
@@ -61,19 +40,8 @@ const Navbar = () => {
           {/* <span>Connected</span> */}
         </ul>
         <div className='btn-group'>
-          <button onClick={connect} className='btn'>
-            Connect to Wallet
-          </button>
-          <button onClick={disconnect} className='btn'>
-            Disconnect Wallet
-          </button>
-          {active ? (
-            <span>
-              Connected with <strong>{account}</strong>
-            </span>
-          ) : (
-            <span>Not connected</span>
-          )}
+          <button className='btn'>Connect to Wallet</button>
+          <button className='btn'>Disconnect Wallet</button>
         </div>
         <div className='hamburger' onClick={handleClick}>
           {click ? (
