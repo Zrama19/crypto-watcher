@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import './Navbar.css';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
+
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    navigate('./future');
+    e.preventDefault();
+  };
 
   return (
     <div className='header'>
@@ -25,6 +33,9 @@ const Navbar = () => {
 
           <li>
             <a href='/'>Contact</a>
+          </li>
+          <li onClick={handleSubmit}>
+            <a href='/future'>Future</a>
           </li>
         </ul>
         <div className='btn-group'>

@@ -2,7 +2,7 @@ import React from 'react';
 import { FiArrowDown, FiArrowUpRight } from 'react-icons/fi';
 
 const Cryptocard = (props) => {
-  console.log(props.data);
+  // console.log(props.data);
   return (
     <div className='card'>
       <div className='top'>

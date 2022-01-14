@@ -13,21 +13,6 @@
   padding: 1rem;
 }
 
-/* .coins-featured .left {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-bottom: 2rem;
-}
-
-.coins-featured .left p {
-  margin: 1.5rem 0;
-}
-
-.coins-featured .left .btn {
-  align-self: flex-start;
-} */
-
 .coins-featured .right {
   display: flex;
   flex-wrap: wrap;

@@ -4,6 +4,7 @@ import Landing from './components/Landing';
 import Coins from './components/Coins';
 import ErrorPage from './components/ErrorPage';
 import Signup from './components/Signup';
+import Future from './components/Future';
 function App() {
   return (
     <Router>
@@ -12,6 +13,7 @@ function App() {
         <Route path='/coins' element={<Coins />}></Route>
         <Route path='/signup' element={<Signup />}></Route>
         <Route path='*' element={<ErrorPage />}></Route>
+        <Route path='/future' element={<Future />}></Route>
       </Routes>
     </Router>
   );
