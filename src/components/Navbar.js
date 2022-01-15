@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import './Navbar.css';
-import { useNavigate } from 'react-router-dom';
+import { injected } from './Connector';
+import { useWeb3React } from '@web3-react/core';
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
+  // eslint-disable-next-line
+  const { active, account, library, connector, activate, deactivate } =
+    useWeb3React();
 
-  const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
-    navigate('./future');
-    e.preventDefault();
-  };
+  async function connect() {
+    try {
+      await activate(injected);
+    } catch (ex) {
+      console.log(ex);
+    }
+  }
 
   return (
     <div className='header'>
@@ -34,13 +39,15 @@ const Navbar = () => {
           <li>
             <a href='/'>Contact</a>
           </li>
-          <li onClick={handleSubmit}>
+          <li>
             <a href='/future'>Future</a>
           </li>
           {/* <span>Connected</span> */}
         </ul>
         <div className='btn-group'>
-          <button className='btn'>Connect to Wallet</button>
+          <button onClick={connect} className='btn'>
+            Connect to Wallet
+          </button>
           <button className='btn'>Disconnect Wallet</button>
         </div>
         <div className='hamburger' onClick={handleClick}>
