@@ -3,6 +3,9 @@ import { FiArrowDown, FiArrowUpRight } from 'react-icons/fi';
 
 const Cryptocard = (props) => {
   // console.log(props.data);
+
+  const priceCoin = props.data.price_change_percentage_24h;
+
   return (
     <div className='card'>
       <div className='top'>
@@ -18,12 +21,12 @@ const Cryptocard = (props) => {
       {props.data.price_change_percentage_24h < 0 ? (
         <span className='red'>
           <FiArrowDown className='icon' />
-          {props.data.price_change_percentage_24h.toFixed(2)}%
+          {priceCoin}%
         </span>
       ) : (
         <span className='green'>
           <FiArrowUpRight className='icon' />
-          {props.data.price_change_percentage_24h.toFixed(2)}%
+          {priceCoin}%
         </span>
       )}
     </div>

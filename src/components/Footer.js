@@ -4,7 +4,7 @@ import './Footer.css';
 
 const Footer = () => {
   return (
-    <div className='footer'>
+    <div id='footsies' className='footer'>
       <div className='container'>
         <div className='col'>
           <h5>Created by Zarif Ramazanov using React.js</h5>

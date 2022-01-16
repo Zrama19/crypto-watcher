@@ -12,13 +12,19 @@ const getLibrary = (provider) => {
   return new Web3(provider);
 };
 
-function App() {
+const App = () => {
+  const whatever = (path) => {
+    console.log(path);
+  };
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
       <Router>
         <Routes>
           <Route path='/' element={<Landing />}></Route>
-          <Route path='/coins' element={<Coins />}></Route>
+          <Route
+            path='/coins/:path'
+            element={<Coins function={whatever} />}
+          ></Route>
           <Route path='/signup' element={<Signup />}></Route>
           <Route path='/future' element={<Future />}></Route>
           <Route path='*' element={<ErrorPage />}></Route>
@@ -26,6 +32,6 @@ function App() {
       </Router>
     </Web3ReactProvider>
   );
-}
+};
 
 export default App;
