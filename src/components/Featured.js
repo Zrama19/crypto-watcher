@@ -7,15 +7,10 @@ import { useNavigate } from 'react-router-dom';
 
 const Featured = () => {
   const [data, setData] = useState([]);
-  // let itemsPerPage = 250;
-  // let totalItems = 1550;
-  // let numberOfPages = Math.floor(totalItems / itemsPerPage);
-  // let page = 1;
-  // console.log(data);
+
   let pageId = 1;
 
   const getData = async () => {
-    // console.log(pageId);
     const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=6&page${pageId}=&sparkline=false`;
     await axios
       .get(url)

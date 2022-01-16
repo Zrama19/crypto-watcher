@@ -13,8 +13,8 @@ const getLibrary = (provider) => {
 };
 
 const App = () => {
-  const whatever = (path) => {
-    console.log(path);
+  const currentCoinPage = (path) => {
+    // console.log(path);
   };
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
@@ -23,7 +23,7 @@ const App = () => {
           <Route path='/' element={<Landing />}></Route>
           <Route
             path='/coins/:path'
-            element={<Coins function={whatever} />}
+            element={<Coins function={currentCoinPage} />}
           ></Route>
           <Route path='/signup' element={<Signup />}></Route>
           <Route path='/future' element={<Future />}></Route>

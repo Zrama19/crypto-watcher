@@ -2,10 +2,7 @@ import React from 'react';
 import { FiArrowDown, FiArrowUpRight } from 'react-icons/fi';
 
 const Cryptocard = (props) => {
-  // console.log(props.data);
-
   const priceCoin = props.data.price_change_percentage_24h;
-  console.log(props);
 
   return (
     <div className='card'>
@@ -15,7 +12,7 @@ const Cryptocard = (props) => {
       </div>
       <div>
         <h5>{props.data.name}</h5>
-        <p>${props.data.current_price.toLocaleString()}</p>
+        <p>${props.data.current_price?.toLocaleString()}</p>
         {/* <p>{props.data.ath}</p> */}
       </div>
 
