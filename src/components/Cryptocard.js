@@ -5,6 +5,7 @@ const Cryptocard = (props) => {
   // console.log(props.data);
 
   const priceCoin = props.data.price_change_percentage_24h;
+  console.log(props);
 
   return (
     <div className='card'>
@@ -21,12 +22,12 @@ const Cryptocard = (props) => {
       {props.data.price_change_percentage_24h < 0 ? (
         <span className='red'>
           <FiArrowDown className='icon' />
-          {priceCoin}%
+          {priceCoin?.toFixed(2)}%
         </span>
       ) : (
         <span className='green'>
           <FiArrowUpRight className='icon' />
-          {priceCoin}%
+          {priceCoin?.toFixed(2)}%
         </span>
       )}
     </div>
