@@ -9,8 +9,23 @@ import CoinsPage from './CoinsPages';
 
 const Coins = (props) => {
   const [data, setData] = useState(null);
-  // const [page, setPage] = useState();
+  const modalId = [];
+  const [modalData, setModalData] = useState();
 
+  // console.log(modalId);
+  const modalApi = async () => {
+    let url = `https://api.coingecko.com/api/v3/coins/${modalId}`;
+    console.log(url);
+    axios
+      .get(url)
+      .then((response) => {
+        setModalData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  console.log(modalData);
   const location = useLocation();
   // console.log(location);
   const slicePage = location.pathname;
@@ -34,7 +49,7 @@ const Coins = (props) => {
 
   useEffect(() => {
     const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${coinsPerPage}&page=${pageIdSliced}=&sparkline=false`;
-    console.log(url);
+
     axios
       .get(url)
       .then((response) => {
@@ -45,6 +60,13 @@ const Coins = (props) => {
       });
   }, [pageIdSliced]);
 
+  const handleModalClick = (data) => {
+    console.log(data);
+    modalId.push(data);
+    modalApi();
+    modalId.pop(data);
+  };
+
   if (!data) return null;
 
   return (
@@ -54,7 +76,13 @@ const Coins = (props) => {
         <div className='container'>
           <div className='right'>
             {data.map((data, index) => {
-              return <Cryptocard data={data} key={index} />;
+              return (
+                <Cryptocard
+                  handleModalClick={handleModalClick}
+                  data={data}
+                  key={index}
+                />
+              );
             })}
           </div>
           <div className='button-coins'></div>

@@ -33,7 +33,7 @@ const Navbar = () => {
     deactivate();
   };
 
-  console.log(account);
+  // console.log(account);
 
   return (
     <div className='header'>
