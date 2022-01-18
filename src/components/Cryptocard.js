@@ -3,9 +3,13 @@ import { FiArrowDown, FiArrowUpRight } from 'react-icons/fi';
 
 const Cryptocard = (props) => {
   const priceCoin = props.data.price_change_percentage_24h;
+  const handleClick = () => {
+    const coinId = props.data.id;
+    console.log(coinId);
+  };
 
   return (
-    <div className='card'>
+    <div className='card' onClick={handleClick}>
       <div className='top'>
         {/* <img src={BTC} alt='/' /> */}
         <img src={props.data.image} alt='' />

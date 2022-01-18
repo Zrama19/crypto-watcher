@@ -17,8 +17,8 @@ const Coins = (props) => {
   const pageIdSliced = slicePage.slice(7, 100);
   props.function(pageIdSliced);
 
-  const totalCoins = 12500;
-  const coinsPerPage = 250;
+  const totalCoins = 1000;
+  const coinsPerPage = 50;
   const coinPages = totalCoins / coinsPerPage;
 
   // for (let i = 0; i < coinPages; i++) {
@@ -29,11 +29,11 @@ const Coins = (props) => {
 
   const coinsTotal = [];
   for (let i = 0; i < coinPages; i++) {
-    coinsTotal.push(i);
+    coinsTotal.push(i + 1);
   }
 
   useEffect(() => {
-    const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=${pageIdSliced}=&sparkline=false`;
+    const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${coinsPerPage}&page=${pageIdSliced}=&sparkline=false`;
     console.log(url);
     axios
       .get(url)

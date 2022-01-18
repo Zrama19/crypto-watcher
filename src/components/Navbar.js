@@ -7,9 +7,20 @@ import { useWeb3React } from '@web3-react/core';
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
-  // eslint-disable-next-line
-  const { active, account, library, connector, activate, deactivate } =
-    useWeb3React();
+
+  let {
+    // eslint-disable-next-line
+    active,
+    // eslint-disable-next-line
+    account,
+    // eslint-disable-next-line
+    library,
+    // eslint-disable-next-line
+    connector,
+    activate,
+    // eslint-disable-next-line
+    deactivate,
+  } = useWeb3React();
 
   async function connect() {
     try {
@@ -18,6 +29,11 @@ const Navbar = () => {
       console.log(ex);
     }
   }
+  const disconnect = () => {
+    deactivate();
+  };
+
+  console.log(account);
 
   return (
     <div className='header'>
@@ -48,7 +64,9 @@ const Navbar = () => {
           <button onClick={connect} className='btn'>
             Connect to Wallet
           </button>
-          <button className='btn'>Disconnect Wallet</button>
+          <button onClick={disconnect} className='btn'>
+            Disconnect Wallet
+          </button>
         </div>
         <div className='hamburger' onClick={handleClick}>
           {click ? (
