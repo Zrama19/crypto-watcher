@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FiArrowDown, FiArrowUpRight } from 'react-icons/fi';
 
 const Cryptocard = (props) => {
+  const [coinId, setCoinId] = useState();
   const priceCoin = props.data.price_change_percentage_24h;
+  const url = `https://api.coingecko.com/api/v3/coins/${coinId}`;
+
   const handleClick = () => {
-    const coinId = props.data.id;
-    console.log(coinId);
+    setCoinId(props.data.id);
   };
+
+  console.log(coinId);
+  console.log(url);
 
   return (
     <div className='card' onClick={handleClick}>
