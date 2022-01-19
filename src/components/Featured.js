@@ -33,6 +33,10 @@ const Featured = () => {
     navigate('/coins/1');
   };
 
+  const handleModalClick = () => {
+    return null;
+  };
+
   if (!data) return null;
 
   return (
@@ -51,7 +55,13 @@ const Featured = () => {
 
         <div className='right'>
           {data.map((data, index) => {
-            return <Cryptocard data={data} key={index} />;
+            return (
+              <Cryptocard
+                handleModalClick={handleModalClick}
+                data={data}
+                key={index}
+              />
+            );
           })}
         </div>
       </div>

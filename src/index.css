@@ -119,3 +119,18 @@ input {
 html {
   scroll-behavior: smooth;
 }
+
+.error {
+  display: block;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 15%;
+}
+
+.error-h1 {
+  display: block;
+  text-align: center;
+  margin-bottom: 10%;
+}

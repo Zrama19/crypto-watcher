@@ -53,10 +53,17 @@ const Newdata = (props) => {
           <Typography id='modal-modal-description' sx={{ mt: 2 }}>
             Coin Gecko Coin Rank: {props.modalData.coingecko_rank}
           </Typography>
-          <p>Current Price: ${props.modalData.market_data.current_price.usd}</p>
+          <p>
+            Current Price: $
+            {props.modalData.market_data.current_price.usd
+              ?.toFixed(2)
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          </p>
           <p>
             Market Cap: $
             {props.modalData.market_data.market_cap.usd
+              ?.toFixed(2)
               .toString()
               .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
           </p>
