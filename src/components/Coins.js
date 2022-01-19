@@ -13,6 +13,7 @@ const Coins = (props) => {
   const modalId = [];
   const [modalData, setModalData] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [click, setClick] = useState(false);
 
   // console.log(modalId);
   const modalApi = async () => {
@@ -71,6 +72,7 @@ const Coins = (props) => {
     modalId.push(data);
     modalApi();
 
+    setClick(!click);
     modalId.pop(data);
   };
 
@@ -82,12 +84,13 @@ const Coins = (props) => {
       <div className='coins-featured'>
         <div className='container'>
           <div className='right'>
-            {data.map((data, index) => {
+            {data.map((data, index, handleOpen) => {
               return (
                 <Cryptocard
                   handleModalClick={handleModalClick}
                   data={data}
                   key={index}
+                  handleOpen={handleOpen}
                 />
               );
             })}
@@ -113,7 +116,11 @@ const Coins = (props) => {
           Next
         </a>
       </div>
-      <div>{isLoading ? null : <Newdata modalData={modalData} />}</div>
+      <div>
+        {isLoading ? null : (
+          <Newdata handleNewdata={click} modalData={modalData} />
+        )}
+      </div>
     </div>
   );
 };
