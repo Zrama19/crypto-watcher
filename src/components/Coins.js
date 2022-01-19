@@ -6,26 +6,31 @@ import Cryptocard from './Cryptocard';
 import './Coins.css';
 import { useLocation } from 'react-router-dom';
 import CoinsPage from './CoinsPages';
+import Newdata from './Newdata';
 
 const Coins = (props) => {
   const [data, setData] = useState(null);
   const modalId = [];
   const [modalData, setModalData] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
   // console.log(modalId);
   const modalApi = async () => {
     let url = `https://api.coingecko.com/api/v3/coins/${modalId}`;
     console.log(url);
-    axios
+
+    await axios
       .get(url)
       .then((response) => {
         setModalData(response.data);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
       });
   };
-  console.log(modalData);
+  // console.log(modalData);
+
   const location = useLocation();
   // console.log(location);
   const slicePage = location.pathname;
@@ -62,8 +67,10 @@ const Coins = (props) => {
 
   const handleModalClick = (data) => {
     console.log(data);
+
     modalId.push(data);
     modalApi();
+
     modalId.pop(data);
   };
 
@@ -106,6 +113,7 @@ const Coins = (props) => {
           Next
         </a>
       </div>
+      <div>{isLoading ? null : <Newdata modalData={modalData} />}</div>
     </div>
   );
 };
