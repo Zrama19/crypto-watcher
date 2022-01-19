@@ -13,7 +13,8 @@ const Coins = (props) => {
   const modalId = [];
   const [modalData, setModalData] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [click, setClick] = useState(false);
+
+  const click = [];
 
   // console.log(modalId);
   const modalApi = async () => {
@@ -67,13 +68,12 @@ const Coins = (props) => {
   }, [pageIdSliced]);
 
   const handleModalClick = (data) => {
-    console.log(data);
-
     modalId.push(data);
     modalApi();
-
-    setClick(!click);
+    click.push(true);
+    // setClick(!click);
     modalId.pop(data);
+    click.pop(true);
   };
 
   if (!data) return null;
@@ -84,13 +84,13 @@ const Coins = (props) => {
       <div className='coins-featured'>
         <div className='container'>
           <div className='right'>
-            {data.map((data, index, handleOpen) => {
+            {data.map((data, index) => {
               return (
                 <Cryptocard
                   handleModalClick={handleModalClick}
                   data={data}
                   key={index}
-                  handleOpen={handleOpen}
+                  // handleOpen={handleOpen}
                 />
               );
             })}

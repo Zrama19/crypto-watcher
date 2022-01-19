@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -17,11 +17,18 @@ const style = {
 
 const Newdata = (props) => {
   const [open, setOpen] = useState(false);
+  const handleNewdata = props.handleNewdata;
 
   const handleClose = () => {
     setOpen(false);
   };
-  console.log(open);
+
+  useEffect(() => {
+    setOpen(handleNewdata);
+    console.log(handleNewdata);
+  }, [handleNewdata]);
+
+  // console.log(open);
 
   console.log(props.modalData);
   //   console.log(props.handleNewdata);
@@ -40,11 +47,19 @@ const Newdata = (props) => {
       >
         <Box sx={style}>
           <Typography id='modal-modal-title' variant='h6' component='h2'>
-            {props.modalData.id}
+            {props.modalData.name}
+            <img src={props.modalData.image.thumb} alt='/'></img>
           </Typography>
           <Typography id='modal-modal-description' sx={{ mt: 2 }}>
-            {props.modalData.coingecko_rank}
+            Coin Gecko Coin Rank: {props.modalData.coingecko_rank}
           </Typography>
+          <p>Current Price: ${props.modalData.market_data.current_price.usd}</p>
+          <p>
+            Market Cap: $
+            {props.modalData.market_data.market_cap.usd
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          </p>
           <Button onClick={handleClose}>Close modal</Button>
         </Box>
       </Modal>
