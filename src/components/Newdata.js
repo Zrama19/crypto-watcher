@@ -25,18 +25,8 @@ const Newdata = (props) => {
 
   useEffect(() => {
     setOpen(handleNewdata);
-    console.log(handleNewdata);
   }, [handleNewdata]);
 
-  // console.log(open);
-
-  console.log(props.modalData);
-  //   console.log(props.handleNewdata);
-
-  //   props.handleNewdata((data) => {
-  //     console.log(data);
-  //     setOpen(data);
-  //   });
   return (
     <div>
       <Modal

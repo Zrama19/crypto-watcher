@@ -19,7 +19,6 @@ const Coins = (props) => {
   // console.log(modalId);
   const modalApi = async () => {
     let url = `https://api.coingecko.com/api/v3/coins/${modalId}`;
-    console.log(url);
 
     await axios
       .get(url)
