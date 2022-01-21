@@ -1,5 +1,4 @@
 import React from 'react';
-import Footer from './Footer';
 import Zang from '../assets/zang.png';
 
 const ErrorPage = () => {
@@ -9,7 +8,6 @@ const ErrorPage = () => {
         <img src={Zang} alt='' className='error' />
         <h1 className='error-h1'>Error 404...You're far from home</h1>
       </div>
-      <Footer />
     </div>
   );
 };

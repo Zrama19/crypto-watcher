@@ -9,6 +9,7 @@ import { Web3ReactProvider } from '@web3-react/core';
 import Web3 from 'web3';
 import MetamaskProvider from './components/MetamaskProvider';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 const getLibrary = (provider) => {
   return new Web3(provider);
@@ -46,6 +47,7 @@ const App = () => {
             <Route path='*' element={<ErrorPage />}></Route>
           </Routes>
         </Router>
+        <Footer />
       </MetamaskProvider>
     </Web3ReactProvider>
   );

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Featured.css';
-import Footer from './Footer';
 
 const Calculator = (props) => {
   const [isLoaded, setIsLoaded] = useState(true);
@@ -22,15 +21,16 @@ const Calculator = (props) => {
       });
   }, [walletAddress]);
 
+  console.log(walletFixed);
+
   return (
     <div className='container'>
-      <div>
+      <div className='connect-wallet'>
         {isLoaded ? (
-          <h3>Calculating Balance...</h3>
+          <h3>Connect your Wallet to view Balance</h3>
         ) : (
           <h3>Current Balance: ${walletFixed}</h3>
         )}
-        <Footer />
       </div>
     </div>
   );

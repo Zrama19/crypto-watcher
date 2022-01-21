@@ -8,7 +8,7 @@ const Cryptocard = (props) => {
     <div className='card' onClick={() => props.handleModalClick(props.data.id)}>
       <div className='top'>
         {/* <img src={BTC} alt='/' /> */}
-        <img src={props.data.image} alt='' />
+        <img className='img-crypto-card' src={props.data.image} alt='' />
       </div>
       <div>
         <h5>{props.data.name}</h5>
