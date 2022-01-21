@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import Navbar from './Navbar';
 import { useState, useEffect } from 'react';
 import Cryptocard from './Cryptocard';
 import './Coins.css';
@@ -9,14 +8,18 @@ import CoinsPage from './CoinsPages';
 import Newdata from './Newdata';
 
 const Coins = (props) => {
+  // console.log(props.wallet);
+  const walletAddress = props.wallet;
+  // console.log(walletAddress);
+
   const [data, setData] = useState(null);
   const modalId = [];
   const [modalData, setModalData] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [walletData, setWalletData] = useState();
 
   const click = [];
 
-  // console.log(modalId);
   const modalApi = async () => {
     let url = `https://api.coingecko.com/api/v3/coins/${modalId}`;
 
@@ -24,16 +27,16 @@ const Coins = (props) => {
       .get(url)
       .then((response) => {
         setModalData(response.data);
+
         setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
       });
   };
-  // console.log(modalData);
 
   const location = useLocation();
-  // console.log(location);
+
   const slicePage = location.pathname;
   const pageIdSliced = slicePage.slice(7, 100);
   props.function(pageIdSliced);
@@ -66,6 +69,20 @@ const Coins = (props) => {
       });
   }, [pageIdSliced]);
 
+  useEffect(() => {
+    const urlWallet = `https://openapi.debank.com/v1/user/chain_balance?id=${walletAddress}&chain_id=eth`;
+    axios
+      .get(urlWallet)
+      .then((response) => {
+        setWalletData(response.data.usd_value);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [walletAddress]);
+
+  console.log(walletData);
+
   const handleModalClick = (data) => {
     modalId.push(data);
     modalApi();
@@ -79,9 +96,9 @@ const Coins = (props) => {
 
   return (
     <div>
-      <Navbar />
       <div className='coins-featured'>
         <div className='container'>
+          <p>You currently have: ${walletData}</p>
           <div className='right'>
             {data.map((data, index) => {
               return (

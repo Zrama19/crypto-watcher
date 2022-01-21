@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Landing from './components/Landing';
 import Coins from './components/Coins';
@@ -7,29 +7,43 @@ import Signup from './components/Signup';
 import Future from './components/Future';
 import { Web3ReactProvider } from '@web3-react/core';
 import Web3 from 'web3';
+import MetamaskProvider from './components/MetamaskProvider';
+import Navbar from './components/Navbar';
 
 const getLibrary = (provider) => {
   return new Web3(provider);
 };
 
 const App = () => {
-  const currentCoinPage = (path) => {
-    // console.log(path);
-  };
+  const [wallet, setWallet] = useState();
+
+  const currentCoinPage = (path) => {};
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      <Router>
-        <Routes>
-          <Route path='/' element={<Landing />}></Route>
-          <Route
-            path='/coins/:path'
-            element={<Coins function={currentCoinPage} />}
-          ></Route>
-          <Route path='/signup' element={<Signup />}></Route>
-          <Route path='/future' element={<Future />}></Route>
-          <Route path='*' element={<ErrorPage />}></Route>
-        </Routes>
-      </Router>
+      <MetamaskProvider>
+        <Navbar setWallet={setWallet} />
+        <Router>
+          <Routes>
+            <Route
+              path='/'
+              element={
+                <div>
+                  <Landing />
+                </div>
+              }
+            ></Route>
+
+            <Route
+              path='/coins/:path'
+              element={<Coins function={currentCoinPage} wallet={wallet} />}
+            ></Route>
+
+            <Route path='/signup' element={<Signup />}></Route>
+            <Route path='/future' element={<Future />}></Route>
+            <Route path='*' element={<ErrorPage />}></Route>
+          </Routes>
+        </Router>
+      </MetamaskProvider>
     </Web3ReactProvider>
   );
 };

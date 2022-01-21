@@ -1,26 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import './Navbar.css';
 import { injected } from './Connector';
 import { useWeb3React } from '@web3-react/core';
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import SettingsEthernetIcon from '@mui/icons-material/SettingsEthernet';
+import PortableWifiOffIcon from '@mui/icons-material/PortableWifiOff';
 
-const Navbar = () => {
-  const [click, setClick] = useState(false);
-  const handleClick = () => setClick(!click);
-
+const Navbar = (props) => {
   let {
-    // eslint-disable-next-line
+    //eslint-disable-next-line
     active,
-    // eslint-disable-next-line
     account,
-    // eslint-disable-next-line
+    //eslint-disable-next-line
     library,
-    // eslint-disable-next-line
+    //eslint-disable-next-line
     connector,
     activate,
-    // eslint-disable-next-line
     deactivate,
   } = useWeb3React();
+
+  const [click, setClick] = useState(false);
+  // const [wallet, setWallet] = useState();
+
+  const handleOpen = () => setClick(!click);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  useEffect(() => {
+    if (account) {
+      props.setWallet(account);
+    }
+  }, [props, account]);
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   async function connect() {
     try {
@@ -29,11 +52,10 @@ const Navbar = () => {
       console.log(ex);
     }
   }
+
   const disconnect = () => {
     deactivate();
   };
-
-  // console.log(account);
 
   return (
     <div className='header'>
@@ -60,15 +82,35 @@ const Navbar = () => {
           </li>
           {/* <span>Connected</span> */}
         </ul>
-        <div className='btn-group'>
-          <button onClick={connect} className='btn'>
-            Connect to Wallet
-          </button>
-          <button onClick={disconnect} className='btn'>
-            Disconnect Wallet
-          </button>
+
+        <p>Connected with: {account}</p>
+
+        <div>
+          <Button
+            aria-describedby={id}
+            variant='contained'
+            onClick={handleClick}
+          >
+            Metamask
+          </Button>
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+          >
+            <Typography sx={{ p: 2 }}>
+              <SettingsEthernetIcon onClick={connect} />
+              <PortableWifiOffIcon onClick={disconnect} />
+            </Typography>
+          </Popover>
         </div>
-        <div className='hamburger' onClick={handleClick}>
+
+        <div className='hamburger' onClick={handleOpen}>
           {click ? (
             <FaTimes size={20} style={{ color: '#333' }} />
           ) : (
