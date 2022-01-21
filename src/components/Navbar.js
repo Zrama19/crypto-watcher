@@ -8,12 +8,14 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import SettingsEthernetIcon from '@mui/icons-material/SettingsEthernet';
 import PortableWifiOffIcon from '@mui/icons-material/PortableWifiOff';
+import Web3 from 'web3';
+import Web3Modal from 'web3modal';
 
 const Navbar = (props) => {
   let {
     //eslint-disable-next-line
     active,
-    account,
+
     //eslint-disable-next-line
     library,
     //eslint-disable-next-line
@@ -23,7 +25,7 @@ const Navbar = (props) => {
   } = useWeb3React();
 
   const [click, setClick] = useState(false);
-  // const [wallet, setWallet] = useState();
+  const [account, setAccount] = useState('');
 
   const handleOpen = () => setClick(!click);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -34,28 +36,44 @@ const Navbar = (props) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+    localStorage.removeItem('wallet');
   };
+
+  async function connectPrompt() {
+    const provider = await web3Modal.connect();
+    const web3 = new Web3(provider);
+    const firstAccount = await web3.eth.getAccounts().then((data) => data[0]);
+    setAccount(firstAccount);
+  }
+
+  useEffect(() => {
+    (async () => {
+      if (localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDER'))
+        await connectPrompt();
+    })();
+  }, []);
+
+  async function disconnect() {
+    await web3Modal.clearCachedProvider();
+    setAccount('');
+  }
 
   useEffect(() => {
     if (account) {
       props.setWallet(account);
+      window.localStorage.getItem('wallet');
     }
   }, [props, account]);
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
-  async function connect() {
-    try {
-      await activate(injected);
-    } catch (ex) {
-      console.log(ex);
-    }
-  }
-
-  const disconnect = () => {
-    deactivate();
-  };
+  const providerOptions = {};
+  const web3Modal = new Web3Modal({
+    network: 'mainnet',
+    cacheProvider: true,
+    providerOptions, // required
+  });
 
   return (
     <div className='header'>
@@ -80,7 +98,6 @@ const Navbar = (props) => {
           <li>
             <a href='/calculator'>Calculator</a>
           </li>
-          {/* <span>Connected</span> */}
         </ul>
 
         <p>Connected with: {account}</p>
@@ -104,8 +121,14 @@ const Navbar = (props) => {
             }}
           >
             <Typography sx={{ p: 2 }}>
-              <SettingsEthernetIcon onClick={connect} />
-              <PortableWifiOffIcon onClick={disconnect} />
+              {account === '' ? (
+                <SettingsEthernetIcon onClick={() => connectPrompt()} />
+              ) : (
+                <PortableWifiOffIcon onClick={() => disconnect()} />
+              )}
+
+              {/* <SettingsEthernetIcon onClick={connect} />
+              <PortableWifiOffIcon onClick={disconnect} /> */}
             </Typography>
           </Popover>
         </div>
