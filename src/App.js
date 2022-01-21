@@ -4,7 +4,7 @@ import Landing from './components/Landing';
 import Coins from './components/Coins';
 import ErrorPage from './components/ErrorPage';
 import Signup from './components/Signup';
-import Future from './components/Future';
+import Future from './components/Calculator';
 import { Web3ReactProvider } from '@web3-react/core';
 import Web3 from 'web3';
 import MetamaskProvider from './components/MetamaskProvider';
@@ -39,7 +39,10 @@ const App = () => {
             ></Route>
 
             <Route path='/signup' element={<Signup />}></Route>
-            <Route path='/future' element={<Future />}></Route>
+            <Route
+              path='/calculator'
+              element={<Future wallet={wallet} />}
+            ></Route>
             <Route path='*' element={<ErrorPage />}></Route>
           </Routes>
         </Router>

@@ -8,15 +8,10 @@ import CoinsPage from './CoinsPages';
 import Newdata from './Newdata';
 
 const Coins = (props) => {
-  // console.log(props.wallet);
-  const walletAddress = props.wallet;
-  // console.log(walletAddress);
-
   const [data, setData] = useState(null);
   const modalId = [];
   const [modalData, setModalData] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [walletData, setWalletData] = useState();
 
   const click = [];
 
@@ -69,20 +64,6 @@ const Coins = (props) => {
       });
   }, [pageIdSliced]);
 
-  useEffect(() => {
-    const urlWallet = `https://openapi.debank.com/v1/user/chain_balance?id=${walletAddress}&chain_id=eth`;
-    axios
-      .get(urlWallet)
-      .then((response) => {
-        setWalletData(response.data.usd_value);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [walletAddress]);
-
-  console.log(walletData);
-
   const handleModalClick = (data) => {
     modalId.push(data);
     modalApi();
@@ -98,7 +79,6 @@ const Coins = (props) => {
     <div>
       <div className='coins-featured'>
         <div className='container'>
-          <p>You currently have: ${walletData}</p>
           <div className='right'>
             {data.map((data, index) => {
               return (
@@ -106,7 +86,6 @@ const Coins = (props) => {
                   handleModalClick={handleModalClick}
                   data={data}
                   key={index}
-                  // handleOpen={handleOpen}
                 />
               );
             })}

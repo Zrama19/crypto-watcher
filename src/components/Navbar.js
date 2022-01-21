@@ -78,7 +78,7 @@ const Navbar = (props) => {
             <a href='/#footsies'>Contact</a>
           </li>
           <li>
-            <a href='/future'>Future</a>
+            <a href='/calculator'>Calculator</a>
           </li>
           {/* <span>Connected</span> */}
         </ul>
