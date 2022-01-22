@@ -40,12 +40,6 @@ const Coins = (props) => {
   const coinsPerPage = 50;
   const coinPages = totalCoins / coinsPerPage;
 
-  // for (let i = 0; i < coinPages; i++) {
-  //   setPage((prevPage) => {
-  //     return prevPage;
-  //   });
-  // }
-
   const coinsTotal = [];
   for (let i = 0; i < coinPages; i++) {
     coinsTotal.push(i + 1);
@@ -68,7 +62,6 @@ const Coins = (props) => {
     modalId.push(data);
     modalApi();
     click.push(true);
-    // setClick(!click);
     modalId.pop(data);
     click.pop(true);
   };

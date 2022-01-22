@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import './Navbar.css';
-import { injected } from './Connector';
-import { useWeb3React } from '@web3-react/core';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -12,18 +10,6 @@ import Web3 from 'web3';
 import Web3Modal from 'web3modal';
 
 const Navbar = (props) => {
-  let {
-    //eslint-disable-next-line
-    active,
-
-    //eslint-disable-next-line
-    library,
-    //eslint-disable-next-line
-    connector,
-    activate,
-    deactivate,
-  } = useWeb3React();
-
   const [click, setClick] = useState(false);
   const [account, setAccount] = useState('');
 
@@ -36,8 +22,15 @@ const Navbar = (props) => {
 
   const handleClose = () => {
     setAnchorEl(null);
-    localStorage.removeItem('wallet');
   };
+
+  useEffect(() => {
+    (async () => {
+      if (localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDER'))
+        await connectPrompt();
+    })();
+    //eslint-disable-next-line
+  }, []);
 
   async function connectPrompt() {
     const provider = await web3Modal.connect();
@@ -45,13 +38,6 @@ const Navbar = (props) => {
     const firstAccount = await web3.eth.getAccounts().then((data) => data[0]);
     setAccount(firstAccount);
   }
-
-  useEffect(() => {
-    (async () => {
-      if (localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDER'))
-        await connectPrompt();
-    })();
-  }, []);
 
   async function disconnect() {
     await web3Modal.clearCachedProvider();
@@ -61,7 +47,6 @@ const Navbar = (props) => {
   useEffect(() => {
     if (account) {
       props.setWallet(account);
-      window.localStorage.getItem('wallet');
     }
   }, [props, account]);
 

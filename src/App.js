@@ -16,6 +16,7 @@ const getLibrary = (provider) => {
 
 const App = () => {
   const [wallet, setWallet] = useState();
+  // console.log(wallet);
 
   const currentCoinPage = (path) => {};
   return (
