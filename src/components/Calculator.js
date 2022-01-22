@@ -8,19 +8,6 @@ const Calculator = (props) => {
   const [walletData, setWalletData] = useState();
   const walletAddress = props.wallet;
   const walletFixed = walletData?.toFixed(3);
-  const [currency, setCurrency] = useState();
-  const [coinType, setCoinType] = useState();
-
-  const handleCurrency = (e) => {
-    // console.log(e.target.value);
-    const currencyForUrl = e.target.value.toLowerCase();
-    setCurrency(currencyForUrl);
-  };
-
-  const handleCoins = (e) => {
-    const coinsLower = e.target.value.toLowerCase();
-    setCoinType(coinsLower);
-  };
 
   useEffect(() => {
     const urlWallet = `https://openapi.debank.com/v1/user/chain_balance?id=${walletAddress}&chain_id=eth`;
@@ -45,14 +32,14 @@ const Calculator = (props) => {
           <div>
             <h3>Current Balance: ${walletFixed}</h3>
             <label>Choose a Currency: </label>
-            <select name='currencies' onChange={handleCurrency} required>
+            <select name='currencies' required>
               <option value='null'>----</option>
               <option value='USD'>USD</option>
               <option value='RUB'>RUB</option>
               <option value='AED'>AED</option>
             </select>
             <label>Choose a coin:</label>
-            <select name='cryptos' onChange={handleCoins}>
+            <select name='cryptos'>
               <option value='null'>----</option>
               <option value='bitcoin'>Bitcoin</option>
               <option value='ethereum'>Ethereum</option>
