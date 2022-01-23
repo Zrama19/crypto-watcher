@@ -33,10 +33,14 @@ const Navbar = (props) => {
   }, []);
 
   async function connectPrompt() {
-    const provider = await web3Modal.connect();
-    const web3 = new Web3(provider);
-    const firstAccount = await web3.eth.getAccounts().then((data) => data[0]);
-    setAccount(firstAccount);
+    if (window.ethereum) {
+      const provider = await web3Modal.connect();
+      const web3 = new Web3(provider);
+      const firstAccount = await web3.eth.getAccounts().then((data) => data[0]);
+      setAccount(firstAccount);
+    } else {
+      alert('No Metamask Installed');
+    }
   }
 
   async function disconnect() {
