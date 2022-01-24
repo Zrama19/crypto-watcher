@@ -1,28 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { FaBars, FaTimes } from 'react-icons/fa';
-import './Navbar.css';
-import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import SettingsEthernetIcon from '@mui/icons-material/SettingsEthernet';
-import PortableWifiOffIcon from '@mui/icons-material/PortableWifiOff';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import './Navbar.css';
+
 import Web3 from 'web3';
 import Web3Modal from 'web3modal';
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 const Navbar = (props) => {
-  const [click, setClick] = useState(false);
   const [account, setAccount] = useState('');
-
-  const handleOpen = () => setClick(!click);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const [isLoading, setIsLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [modalLoading, setModalLoading] = useState(true);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     (async () => {
@@ -38,14 +41,16 @@ const Navbar = (props) => {
       const web3 = new Web3(provider);
       const firstAccount = await web3.eth.getAccounts().then((data) => data[0]);
       setAccount(firstAccount);
+      setIsLoading(false);
     } else {
-      alert('No Metamask Installed');
+      setModalLoading(false);
     }
   }
 
   async function disconnect() {
     await web3Modal.clearCachedProvider();
     setAccount('');
+    setIsLoading(true);
   }
 
   useEffect(() => {
@@ -53,9 +58,6 @@ const Navbar = (props) => {
       props.setWallet(account);
     }
   }, [props, account]);
-
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
 
   const providerOptions = {};
   const web3Modal = new Web3Modal({
@@ -72,8 +74,7 @@ const Navbar = (props) => {
             crypto<span className='primary'>watcher</span>
           </h1>
         </a>
-
-        <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+        <ul>
           <li>
             <a href='/'>Home</a>
           </li>
@@ -88,45 +89,48 @@ const Navbar = (props) => {
             <a href='/calculator'>Calculator</a>
           </li>
         </ul>
-
         <p>Connected with: {account}</p>
-
         <div>
-          <Button
-            aria-describedby={id}
-            variant='contained'
-            onClick={handleClick}
-          >
-            Metamask
-          </Button>
-          <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-          >
-            <Typography sx={{ p: 2 }}>
-              {account === '' ? (
-                <SettingsEthernetIcon onClick={() => connectPrompt()} />
-              ) : (
-                <PortableWifiOffIcon onClick={() => disconnect()} />
-              )}
-
-              {/* <SettingsEthernetIcon onClick={connect} />
-              <PortableWifiOffIcon onClick={disconnect} /> */}
-            </Typography>
-          </Popover>
-        </div>
-
-        <div className='hamburger' onClick={handleOpen}>
-          {click ? (
-            <FaTimes size={20} style={{ color: '#333' }} />
+          {isLoading ? (
+            <Button
+              variant='contained'
+              onClick={() => {
+                connectPrompt();
+                handleOpen();
+              }}
+            >
+              Connect
+            </Button>
           ) : (
-            <FaBars size={20} style={{ color: '#333' }} />
+            <Button variant='contained' onClick={() => disconnect()}>
+              Disconnect
+            </Button>
+          )}
+        </div>
+        <div>
+          {modalLoading ? null : (
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby='modal-modal-title'
+              aria-describedby='modal-modal-description'
+            >
+              <Box sx={style}>
+                <Typography id='modal-modal-title' variant='h6' component='h2'>
+                  If you are seeing this error, you need to install the Metamask
+                  Wallet extension.
+                </Typography>
+                <Typography id='modal-modal-description' sx={{ mt: 2 }}>
+                  <a
+                    href='https://metamask.io/download/'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    Metamask Download
+                  </a>
+                </Typography>
+              </Box>
+            </Modal>
           )}
         </div>
       </div>

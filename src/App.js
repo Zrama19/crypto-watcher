@@ -45,7 +45,7 @@ const App = () => {
           ></Route>
           <Route path='*' element={<ErrorPage />}></Route>
         </Routes>
-      </Router>{' '}
+      </Router>
       <Footer />
     </Web3ReactProvider>
   );
