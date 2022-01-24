@@ -26,6 +26,7 @@ const Hero = () => {
           <div className='input-container'>
             <form>
               <input
+                className='input-hero'
                 type='email'
                 placeholder='Enter your email'
                 onSubmit={handleKeypress}

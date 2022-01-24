@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Featured.css';
+import CoinOption from './CoinOption';
 
 const Calculator = (props) => {
   const [isLoaded, setIsLoaded] = useState(true);
   const [currency, setCurrency] = useState();
   const [walletData, setWalletData] = useState();
   const [coinData, setCoinData] = useState();
+  const [coinOption, setCoinOption] = useState();
   const [coin, setCoin] = useState();
   const walletAddress = props.wallet;
   const walletFixed = walletData?.toFixed(3);
   const [coinLoaded, setCoinLoaded] = useState(true);
+  const [money, setMoney] = useState();
 
   const getCurrency = (e) => {
     setCurrency(e.target.value);
@@ -19,6 +22,26 @@ const Calculator = (props) => {
   const getCoin = (e) => {
     setCoin(e.target.value);
   };
+
+  const getMoney = (e) => {
+    setMoney(e.target.value);
+    e.preventDefault();
+  };
+
+  useEffect(() => {
+    const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1=&sparkline=false`;
+
+    axios
+      .get(url)
+      .then((response) => {
+        setCoinOption(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  console.log(coinOption);
 
   useEffect(() => {
     const urlWallet = `https://openapi.debank.com/v1/user/chain_balance?id=${walletAddress}&chain_id=eth`;
@@ -33,7 +56,7 @@ const Calculator = (props) => {
         console.log(error);
       });
   }, [walletAddress]);
-
+  //eslint-disable-next-line
   const getCoinApi = async () => {
     const coinUrl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${coin}&order=market_cap_desc&per_page=100&page=1&sparkline=false`;
     axios
@@ -47,9 +70,10 @@ const Calculator = (props) => {
       });
     console.log(coinUrl);
   };
-  console.log(currency);
-  console.log(coin);
-  console.log(coinData);
+
+  useEffect(() => {
+    getCoinApi();
+  }, [getCoinApi]);
 
   return (
     <div className='container'>
@@ -58,7 +82,7 @@ const Calculator = (props) => {
           <h3>Connect your Wallet to view Balance</h3>
         ) : (
           <div>
-            <h3>Current Balance: ${walletFixed}</h3>
+            <h3>Current Wallet Balance: ${walletFixed}</h3>
             <div>
               <label>Choose a Currency: </label>
               <select name='currencies' onChange={getCurrency} required>
@@ -67,23 +91,27 @@ const Calculator = (props) => {
                 <option value='RUB'>RUB</option>
                 <option value='AED'>AED</option>
               </select>
+              <div>
+                <input type='number' value={money} onChange={getMoney}></input>
+              </div>
             </div>
             <div>
               <label>Choose a coin:</label>
               <select name='cryptos' onChange={getCoin}>
                 <option value='null'>----</option>
-                <option value='bitcoin'>Bitcoin</option>
-                <option value='ethereum'>Ethereum</option>
+                {coinOption.map((coinOption, index) => {
+                  return <CoinOption coinOption={coinOption} key={index} />;
+                })}
               </select>
             </div>
-            <div>
+            {/* <div>
               <button onClick={getCoinApi}>Calculate!</button>
-            </div>
+            </div> */}
             <div>
               {coinLoaded ? null : (
                 <p>
-                  You have {(walletFixed / coinData)?.toFixed(8)} worth of{' '}
-                  {coin} based on {currency} currency.
+                  You have {(money / coinData)?.toFixed(8)} worth of {coin}{' '}
+                  based on {currency} currency.
                 </p>
               )}
             </div>
