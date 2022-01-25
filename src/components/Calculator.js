@@ -73,7 +73,8 @@ const Calculator = (props) => {
 
   useEffect(() => {
     getCoinApi();
-  }, [getCoinApi]);
+    //eslint-disable-next-line
+  }, [money, coin, currency]);
 
   return (
     <div className='container'>
@@ -104,9 +105,6 @@ const Calculator = (props) => {
                 })}
               </select>
             </div>
-            {/* <div>
-              <button onClick={getCoinApi}>Calculate!</button>
-            </div> */}
             <div>
               {coinLoaded ? null : (
                 <p>
